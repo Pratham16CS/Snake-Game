@@ -3,7 +3,34 @@
 [![Java Version](https://img.shields.io/badge/Java-SE%2017%2B-orange.svg)](https://www.oracle.com/java/)
 [![GUI Framework](https://img.shields.io/badge/UI-Java%20Swing%20%2F%20AWT-blue.svg)](https://docs.oracle.com/javase/tutorial/uiswing/)
 
-A lightweight, pixel-perfect 2D Snake Game engineered from scratch utilizing native **Java Swing** and **AWT** components. Featuring an integrated state-driven menu manager, dynamic collision-evaluation loops, an automated persistence model tracking high scores across runs, and focus-safe button handling for instant replays.
+A lightweight, pixel-perfect 2D Snake Game engineered from scratch utilizing native **Java Swing** and **AWT** components. Featuring an integrated state-driven menu manager, dynamic collision-evaluation loops, and focus-safe button handling for instant replays.
+
+---
+
+## 📸 Game Previews
+
+Here is a look at the game interfaces built entirely with Java Swing:
+
+### 1. Main Menu Screen
+An introductory window featuring options to jump straight into the action or review gameplay instructions.
+
+<p align="center">
+  <img src="screenshots/main_menu.jpg" alt="Snake Game Main Menu" width="500"/>
+</p>
+
+### 2. Active Gameplay
+Smooth, 60FPS grid movement displaying the active snake length tracking toward food targets with live score updates.
+
+<p align="center">
+  <img src="screenshots/gameplay.jpg" alt="Active Gameplay Screen" width="500"/>
+</p>
+
+### 3. Game Over & Replay Screen
+Triggers instantly on boundary or self-collisions, showcasing final performance metrics along with a responsive replay button.
+
+<p align="center">
+  <img src="screenshots/game_over.jpg" alt="Game Over Screen" width="500"/>
+</p>
 
 ---
 
@@ -13,7 +40,6 @@ A lightweight, pixel-perfect 2D Snake Game engineered from scratch utilizing nat
 * **AWT Dialog Interception**: Leverages declarative informational overlays for real-time control walkthroughs without triggering window bloat.
 * **Focus-Resilient UI Pipeline**: Custom button state management overrides focus stealing, allowing instant transitions back to active keyboard event reading loops.
 * **Session-Persistent High Scores**: Real-time score compilation structures that accurately cache performance milestones across subsequent loops within a runtime session.
-* **Synchronized Frame Packing**: Avoids standard Java rendering stutters by deferring window visibility hooks until structural dimensions match component dimensions.
 
 ---
 
@@ -24,26 +50,17 @@ The game decouples window environments from behavioral contexts using a micro-mo
 ```text
 📁 snake-game/
 │
-├── 📄 Snakegame.java  # Application Entry Context (Initializes Bootstrapper Loop)
+├── 📁 screenshots/    # Place your image_6fee77.jpg, etc. here!
+├── 📄 Snakegame.java  # Application Entry Context
 ├── 📄 Page1.java      # Splash & Navigation Canvas Environment 
-├── 📄 Gameframe.java  # Native OS-Level Window Container Context (JFrame Container)
-└── 📄 Gamepanel.java  # Collision Loop, Graphics Rendering Pipeline & Event Manager
+├── 📄 Gameframe.java  # Native OS-Level Window Container Context
+└── 📄 Gamepanel.java  # Collision Loop & Graphics Rendering Pipeline
 
 ```
-
-### Execution Lifecyle Flow
-
-1. **`Snakegame`** initializes and shifts viewport focus to the main splash screen (**`Page1`**).
-2. Starting the game disposes of the splash asset pipeline and loads the primary target frame (**`Gameframe`**).
-3. The frame encapsulates a high-performance grid component layer (**`Gamepanel`**) that manages key input listeners and game loop timers.
 
 ---
 
 ## 🚀 Getting Started & Compilation
-
-### Prerequisites
-
-* **Java Development Kit (JDK)**: Standard Edition 17 or greater recommended.
 
 ### Building via Terminal
 
@@ -70,22 +87,7 @@ java Snakegame
 
 | Action / Direction | Input Mapping | Rule / Event Boundary |
 | --- | --- | --- |
-| **Steer Up** | ⬆️ `Up Arrow` | Cannot steer directly backward into opposing vectors. |
-| **Steer Down** | ⬇️ `Down Arrow` | Cannot steer directly backward into opposing vectors. |
-| **Steer Left** | ⬅️ `Left Arrow` | Cannot steer directly backward into opposing vectors. |
-| **Steer Right** | ➡️ `Right Arrow` | Cannot steer directly backward into opposing vectors. |
-| **Consume Apple** | Automatic Intersection | Extends body index by `1` cell; increments baseline score by `1`. |
-| **Hit Boundary / Self** | Automatic Collision | Drops running flags, halts the active background timer, and outputs Game Over metrics. |
-
----
-
-## ⚙️ Core Engineering Fixes Included
-
-This polished revision resolves several legacy issues common in custom Swing games:
-
-* **Focus Leak Elimination (`setFocusable(false)`)**: Explicitly revokes UI focus targets from interaction fields like buttons, preventing input elements from trapping hardware key triggers away from the main canvas event registers.
-* **Precise Grid Border Evaluation**: Adapts boundary validation checks from loose inequality constraints (`>`) to boundary tracking limits (`>=`), correcting structural flaws where segment entities could render outside the visible canvas coordinates.
-* **State Matrix Sweeps**: Embeds structured initialization steps that zero out historical placement arrays during live hot-resets, preventing ghost segment artifacts.
-* **Synchronized Layout Buffering**: Reorders thread layouts by enforcing `.pack()` constraints before invoking structural visibility (`.setVisible(true)`), protecting layouts against dimensional distortion and initialization flicker.
-
----
+| **Steer Up / Down** | ⬆️ / ⬇️ Arrows | Cannot steer directly backward into opposing vectors. |
+| **Steer Left / Right** | ⬅️ / ➡️ Arrows | Cannot steer directly backward into opposing vectors. |
+| **Consume Apple** | Automatic Intersection | Extends body index by `1` cell; increments score by `1`. |
+| **Hit Boundary / Self** | Automatic Collision | Drops running flags, halts the active timer, and outputs Game Over metrics. |
